@@ -1,3 +1,7 @@
 # Vim things
 *.swp
 *.swo
+
+# web-ext build stuff
+.web-extension-id
+web-ext-artifacts/

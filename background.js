@@ -5,6 +5,25 @@ var hourglass = null;
 var passedDelay = [];
 
 function gatekeeper(event) {
+    var d=new Date();
+
+    var active=true;
+    
+    if (d.getDay()==0 || d.getDay()==6) {
+        active=false;
+    }
+
+    if (d.getHours()<8 || d.getHours()>16) {
+        active=false;
+    }
+
+    if (!active) {
+        clearInterval(hourglass);
+        hourglass = null;
+        browser.storage.sync.set({hourglass: timeRemaining});
+        return;
+    }
+    
     browser.storage.sync.get(['hourglass', 'delays', 'delayOn']).then(result => {
         if (result.hourglass != 0) {    // Permitted Stage
             isTresspassing().then(tresspass => {
